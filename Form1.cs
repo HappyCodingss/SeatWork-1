@@ -26,6 +26,7 @@ namespace SeatWork_1
         {
             Write write = new Write();
             write.Show();
+            this.Hide();
 
         }
 
@@ -33,11 +34,12 @@ namespace SeatWork_1
         {
             browseFiles bF = new browseFiles();
             bF.Show();
+            this.Hide();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)

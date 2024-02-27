@@ -17,13 +17,14 @@ namespace SeatWork_1
         {
             InitializeComponent();
         }
-        string path = @"C:/Users/Francis Alex/SampleFile/francis.csv";
+        /*string folderPath = Path.Combine(Application.StartupPath, "SampleFile");*/
+        string filePath = Path.Combine("SampleFile", "francis.csv");
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
             Form1 frm1 = new Form1();
             frm1.Show();
-            this.Dispose();
+            this.Hide();
         }
 
         private void Write_Load(object sender, EventArgs e)
@@ -38,13 +39,55 @@ namespace SeatWork_1
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            using (StreamWriter sw = new StreamWriter(path, true))
+            string[] a = richTextBox1.Text.Split(',');
+            string course = a[2].ToUpper();
+            if (a.Length == 7)
             {
-                String input = richTextBox1.Text;
-                sw.WriteLine(input.ToString());
-                MessageBox.Show("The file has been written");
+                if(int.TryParse(a[6], out int grade))
+                {
+                    if(grade <= 100 && grade > 60) {
+                    if (ValidCourse(course)) { 
+                        using (StreamWriter sw = new StreamWriter(filePath, true))
+                        {
+                            String input = richTextBox1.Text;
+                            sw.WriteLine(input.ToString());
+                            MessageBox.Show("The file has been written");
+                            richTextBox1.Clear();
 
+                        }
+                        }
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("Enter a valid Course");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("The Grade is not Valid");
+                }
             }
+            else
+            {
+                MessageBox.Show("Please Insert a VALID data");
+            }
+        }
+        public bool ValidCourse(string kurso)
+        {
+            if (kurso == "IT" || kurso == "MATH" || kurso == "CE" || kurso == "EE" || kurso == "BSIT" || kurso == "BSMATH" || kurso == "BSEE" || kurso == "BSCE")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
